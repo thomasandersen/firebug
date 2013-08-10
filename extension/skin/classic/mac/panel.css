@@ -85,6 +85,26 @@ body {
       font-family: Monaco, monospace;
 }
 
+.logCounterValue {
+    border: none;
+    padding: 0 4px;
+    color: #fff;
+    font-weight: bold;
+    background: #d4dde4 none;
+}
+
+.logRow-log .logCounterValue {
+    background: #0095dd;
+}
+
+.logRow-info .logCounterValue {
+    background: #0095dd;
+}
+
+.logRow-errorMessage .logCounterValue {
+    background: #e66000;
+}
+
 /************************************************************************************************/
 /* HTML panel */
 
