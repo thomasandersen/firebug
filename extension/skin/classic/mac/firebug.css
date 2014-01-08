@@ -219,11 +219,6 @@
     list-style-image: url(chrome://firebug/skin/mac/detach.svg);
 }
 
-#fbToggleCommandLine,
-#fbToggleCommandEditor {
-    margin-right: 20px !important;
-}
-
 #fbCloseButton {
     list-style-image: url(chrome://firebug/skin/mac/close.svg);
 }
