@@ -437,7 +437,7 @@ panelTab[selected="true"] > panelTabMenu {
 
 .toolbarbutton[disabled=true] > .toolbarbutton-text,
 .toolbar-text-button[disabled=true] > .toolbarbutton-text {
-    color: #9a9a9a;
+    color: graytext;
 }
 
 .toolbar-text-button .toolbarbutton-text,
