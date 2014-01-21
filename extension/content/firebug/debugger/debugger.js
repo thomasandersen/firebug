@@ -48,6 +48,7 @@ Firebug.Debugger = Obj.extend(ActivableModule,
         // xxxHonza: scoped logging should automate this (see firebug/lib/trace module).
         Firebug.registerTracePrefix("debuggerTool.", "DBG_DEBUGGERTOOL", false);
         Firebug.registerTracePrefix("breakpointTool.", "DBG_BREAKPOINTTOOL", false);
+        Firebug.registerTracePrefix("sourceTool.", "DBG_SOURCETOOL", false);
 
         // Listen to the main client, which represents the connection to the server.
         // The main client object sends various events about attaching/detaching
@@ -493,6 +494,9 @@ Firebug.Debugger = Obj.extend(ActivableModule,
         {
             // "this" is not a real scope.
             if (scope.name === "this")
+                continue;
+
+            if (!scope.grip)
                 continue;
 
             // We can't synchronously read properties of objects on the scope chain,
