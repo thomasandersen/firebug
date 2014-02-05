@@ -289,7 +289,7 @@ panelTab {
     padding: 5px 8px 7px 8px;
     font-size: 11px;
     font-weight: bold;
-    color: #4a4a4a;
+    color: #000;
     direction: ltr;
 }
 
@@ -399,7 +399,7 @@ panelTab[selected="true"] > panelTabMenu {
 .toolbar-text-button:hover:not([disabled="true"]) > .toolbarbutton-text,
 .toolbar-text-menubutton:hover:not([disabled="true"]) > .toolbarbutton-menu-dropmarker,
 .toolbar-text-menubutton:hover:not([disabled="true"]) > .toolbarbutton-text {
-    color: #fff;
+    color: #4a4a4a;
     text-shadow: 0 1px rgba(120, 120, 120, 1);
 }
 
@@ -422,7 +422,7 @@ panelTab[selected="true"] > panelTabMenu {
 
 .toolbarbutton[checked="true"] > .toolbarbutton-text,
 .toolbar-text-button[checked="true"] > .toolbarbutton-text {
-    color: #fff;
+    color: #4a4a4a;
 }
 
 .toolbarbutton[disabled=true] > .toolbarbutton-text,
