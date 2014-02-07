@@ -9,7 +9,7 @@
 
 #fbCommandToolbar {
     border: none;
-    padding-bottom: 2px;
+    height: calc(22rem + 9px);
     background-image: -moz-linear-gradient(rgba(255,255,255,.9), rgba(255,255,255,.2));
 }
 
@@ -49,7 +49,7 @@
 
 #fbPanelSplitter > #fbPanelSplitterBox {
     visibility: visible;
-    height: 32px;
+    height: calc(22rem + 10px);
     width: 6px;
     background-color: -moz-dialog;
     background-image: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.2));
@@ -89,7 +89,7 @@
 
 #fbPanelBar1-tabBox,
 #fbPanelBar2-tabBox {
-    height: 32px;
+    height: calc(22rem + 10px);
 }
 
 #fbPanelBar1-tabBox {
@@ -105,7 +105,7 @@
 #fbToolbarInner.innerToolbar {
     margin-left: -5px;
     margin-right: 0;
-    height: 31px;
+    height: calc(22rem + 9px);
     background-color: transparent;
 }
 
@@ -289,7 +289,7 @@ panelTab {
     padding: 5px 8px 7px 8px;
     font-size: 11px;
     font-weight: bold;
-    color: #000;
+    color: #3a3a3a;
     direction: ltr;
 }
 
