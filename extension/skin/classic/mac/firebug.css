@@ -119,7 +119,8 @@
 /* Search Box */
 
 #fbSearchBox {
-    margin-bottom: 0px;
+    margin-top: 4px;
+    margin-bottom: 3px;
 }
 
 .fbsearch-textbox {
