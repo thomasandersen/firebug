@@ -1814,6 +1814,12 @@ this.setBreakpoint = function(chrome, url, lineNo, attributes, callback)
 
 this.removeBreakpoint = function(chrome, url, lineNo, callback)
 {
+    if (!callback)
+    {
+        FBTest.sysout("removeBreakpoint; ERROR missing callback");
+        return;
+    }
+
     if (!chrome)
         chrome = FW.Firebug.chrome;
 
@@ -1823,13 +1829,28 @@ this.removeBreakpoint = function(chrome, url, lineNo, callback)
 
     FBTestFirebug.selectSourceLine(url, lineNo, "js", chrome, function(row)
     {
-        if (FBTest.hasBreakpoint(row))
+        var hasBreakpoint = FBTest.hasBreakpoint(lineNo);
+        FBTest.ok(hasBreakpoint, "There must be a breakpoint at line: " + lineNo);
+
+        var listener =
         {
-            // Click to remove a breakpoint.
-            FBTest.mouseDown(row.querySelector(".breakpoint"));
-            FBTest.ok(!FBTest.hasBreakpoint(row), "Breakpoint must be removed");
-        }
-        callback(row);
+            onBreakpointRemoved: function()
+            {
+                DebuggerController.removeListener(browser, listener);
+
+                hasBreakpoint = FBTest.hasBreakpoint(lineNo);
+                FBTest.ok(!hasBreakpoint, "Breakpoint must be removed");
+
+                callback();
+            }
+        };
+
+        var browser = FBTestFirebug.getCurrentTabBrowser();
+        DebuggerController.addListener(browser, listener);
+
+        // Click to remove a breakpoint.
+        var target = row.querySelector(".CodeMirror-linenumber");
+        FBTest.synthesizeMouse(target, 2, 2, {type: "mousedown"});
     });
 };
 
@@ -1837,7 +1858,7 @@ this.hasBreakpoint = function(line, chrome)
 {
     var line = line;
     if (typeof(line) == "number")
-        line = FBTest.getSourceLineNode(lineNo, chrome);
+        line = FBTest.getSourceLineNode(line, chrome);
 
     if (!line)
     {
@@ -1909,6 +1930,12 @@ this.setWatchExpressionValue = function(chrome, varName, expression, callback)
     if (!chrome)
         chrome = FW.Firebug.chrome;
 
+    if (!callback)
+    {
+        FBTest.sysout("setWatchExpressionValue; ERROR missing callback");
+        return;
+    }
+
     var watchPanel = FBTest.getPanel("watches", true);
     var row = this.getWatchExpressionRow(chrome, varName);
     if (!row)
@@ -1921,18 +1948,17 @@ this.setWatchExpressionValue = function(chrome, varName, expression, callback)
     var editor = panelNode.querySelector(".completionInput");
     FBTest.ok(editor, "The editor must be there; " + varName);
 
-    // Wait till the result is evaluated and displayed.
+    // Wait till the tree-row (with given variable name) is refreshed
     var doc = FBTest.getSidePanelDocument();
-    var recognizer = new MutationRecognizer(doc.defaultView, "td",
-        {"class": "memberValueCell"});
+    var recognizer = new MutationRecognizer(doc.defaultView, "Text",
+        {"class": "memberLabelBox"}, varName);
 
-    recognizer.onRecognizeAsync(function(memberValueColumn)
+    recognizer.onRecognizeAsync(function(element)
     {
-        var td = FW.FBL.hasClass(memberValueColumn, "memberValueCell") ?
-            memberValueColumn : memberValueColumn.querySelector(".memberValueCell");
+        FBTest.sysout("setWatchExpressionValue; row refreshed: " + varName);
 
-        if (callback)
-            callback(td);
+        var row = FW.FBL.getAncestorByClass(element, "memberRow");
+        callback(row);
     });
 
     // Set expression and press enter.
@@ -1952,6 +1978,12 @@ this.toggleWatchExpressionBooleanValue = function(chrome, varName, callback)
     if (!chrome)
         chrome = FW.Firebug.chrome;
 
+    if (!callback)
+    {
+        FBTest.sysout("setWatchExpressionValue; ERROR missing callback");
+        return;
+    }
+
     var watchPanel = FBTest.getPanel("watches", true);
     var row = this.getWatchExpressionRow(chrome, varName);
     if (!row)
@@ -1960,7 +1992,18 @@ this.toggleWatchExpressionBooleanValue = function(chrome, varName, callback)
     // Click to open a text editor.
     FBTest.dblclick(row);
 
-    callback(row);
+    // Wait till the tree-row (with given variable name) is refreshed
+    var doc = FBTest.getSidePanelDocument();
+    var recognizer = new MutationRecognizer(doc.defaultView, "Text",
+        {"class": "memberLabelBox"}, varName);
+
+    recognizer.onRecognizeAsync(function(element)
+    {
+        FBTest.sysout("toggleWatchExpressionBooleanValue; row refreshed: " + varName);
+
+        var row = FW.FBL.getAncestorByClass(element, "memberRow");
+        callback(row);
+    });
 }
 
 /**
