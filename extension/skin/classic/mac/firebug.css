@@ -8,7 +8,7 @@
 /************************************************************************************************/
 
 #fbCommandToolbar {
-    font-size: 100%;
+    font-size: 11px;
     border: none;
     height: calc(22rem + 9px);
     background-image: -moz-linear-gradient(rgba(255,255,255,.9), rgba(255,255,255,.2));
@@ -80,7 +80,7 @@
 }
 
 #fbToolbar {
-    font-size: 100%;
+    font-size: 11px;
     padding-left: 4px;
     border-bottom: none;
 }
@@ -347,8 +347,8 @@ panelTab[selected="true"] > panelTabMenu {
 }
 
 .panelStatusLabel {
-    margin: 0;
-    padding: 0 4px;
+    margin: 1px 0 0 0;
+    padding: 2px 4px;
     color: #565656;
 }
 
@@ -363,9 +363,9 @@ panelTab[selected="true"] > panelTabMenu {
 .toolbar-text-button,
 .toolbar-text-menubutton {
     -moz-appearance: none;
-    margin-top: 5px;
+    margin-top: 6px;
     margin-bottom: 6px;
-    padding: 0 8px;
+    padding: 1px 8px;
     min-width: 0;
     max-width: 13em;
     font-weight: bold;
